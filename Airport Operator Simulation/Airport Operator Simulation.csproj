@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Distibutor.cs" />
     <Compile Include="Models\ExponentialDistribution.cs" />
     <Compile Include="Models\Human.cs" />
     <Compile Include="Models\NormalDistribution.cs" />

@@ -1,4 +1,5 @@
-﻿using Airport_Operator_Simulation.View.Interface;
+﻿using Airport_Operator_Simulation.Models;
+using Airport_Operator_Simulation.View.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,18 +28,23 @@ namespace Airport_Operator_Simulation.View.Class
         private TextBox NumberPeopleTwo;
         private Label label8;
         private TextBox NumberPeopleOne;
+        private Label Weigth;
+        private Label label5;
+        private Label StopLabel;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         public Chart _chart { get; set; }
-        public Button InputButton {set => Controls.Add(value); }
+        public Button InputButton { set => Controls.Add(value); }
         public RadioButton[] radioButtons { get; set; }
         public TextBox[] getValue { get; set; }
+        public string stop { set => StopLabel.Text = value; }
 
-        public MainWindow()
+        public MainWindow(SaveLoad load)
         {
             InitializeComponent();
             _chart = chart;
             radioButtons = [Uniform, Exp];
             getValue = [WeigthOne, WeigthTwo, StopWeigth, NumberTerminal, NumberPeopleOne, NumberPeopleTwo];
+            load.Load(getValue,"C:\\Users\\satal\\source\\repos\\Airport Operator Simulation\\Airport Operator Simulation\\Save\\save.json");
         }
 
         
@@ -64,6 +70,9 @@ namespace Airport_Operator_Simulation.View.Class
             this.NumberPeopleTwo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.NumberPeopleOne = new System.Windows.Forms.TextBox();
+            this.Weigth = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.StopLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -210,9 +219,39 @@ namespace Airport_Operator_Simulation.View.Class
             this.NumberPeopleOne.Size = new System.Drawing.Size(87, 22);
             this.NumberPeopleOne.TabIndex = 17;
             // 
+            // Weigth
+            // 
+            this.Weigth.AutoSize = true;
+            this.Weigth.Location = new System.Drawing.Point(501, 262);
+            this.Weigth.Name = "Weigth";
+            this.Weigth.Size = new System.Drawing.Size(235, 16);
+            this.Weigth.TabIndex = 20;
+            this.Weigth.Text = "Количество не прошедших по весу:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(0, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(44, 16);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "label5";
+            // 
+            // StopLabel
+            // 
+            this.StopLabel.AutoSize = true;
+            this.StopLabel.Location = new System.Drawing.Point(742, 262);
+            this.StopLabel.Name = "StopLabel";
+            this.StopLabel.Size = new System.Drawing.Size(14, 16);
+            this.StopLabel.TabIndex = 22;
+            this.StopLabel.Text = "0";
+            // 
             // MainWindow
             // 
             this.ClientSize = new System.Drawing.Size(918, 537);
+            this.Controls.Add(this.StopLabel);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.Weigth);
             this.Controls.Add(this.NumberPeopleTwo);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.NumberPeopleOne);

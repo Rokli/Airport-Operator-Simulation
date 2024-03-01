@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
@@ -54,11 +57,15 @@
     <Compile Include="Models\Human.cs" />
     <Compile Include="Models\NormalDistribution.cs" />
     <Compile Include="Models\Randoms.cs" />
+    <Compile Include="Models\Save.cs" />
     <Compile Include="Models\Terminal.cs" />
     <Compile Include="Models\UniformDistribution.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Class\CheckWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="View\Class\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,9 +79,13 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Class\CheckWindow.resx">
+      <DependentUpon>CheckWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Class\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,6 +95,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Save\save.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

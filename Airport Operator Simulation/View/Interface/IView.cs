@@ -14,5 +14,6 @@ namespace Airport_Operator_Simulation.View.Interface
         public Button InputButton { set; }
         public RadioButton[] radioButtons { get; set; }
         public TextBox[] getValue { get; set; }
+        public string stop { set; }
     }
 }

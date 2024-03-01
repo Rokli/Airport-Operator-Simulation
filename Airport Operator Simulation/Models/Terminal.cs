@@ -12,17 +12,24 @@ namespace Airport_Operator_Simulation.Models
     public class Terminal
     {
         public double time { get; set; } = 0;
-        public bool flag { get; set; } = true;
         public Randoms rand {  get; set; }
-        public Terminal(int number) 
+        public int _stopweigth { get; set; }
+        public int number { get; set; } = 0;
+        public Terminal(int number, int stopweigth) 
         {
+            _stopweigth = stopweigth;
             rand = new Randoms(number);
         }
 
         public void Handler(Human human)
         {
-            time += human._weigth * 0.1f;
-            time += rand.Random(1,6);
+            if(human._weigth > _stopweigth)
+                number++;
+            else
+            {
+                time += human._weigth * 0.1f;
+                time += rand.Random(1, 6);
+            }
         }
     }
 }

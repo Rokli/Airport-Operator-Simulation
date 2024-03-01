@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Airport_Operator_Simulation.View.Class;
 using Airport_Operator_Simulation;
+using Airport_Operator_Simulation.Models;
 
 namespace Airport_Operator_Simulation
 {
@@ -18,8 +19,9 @@ namespace Airport_Operator_Simulation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainWindow view = new MainWindow();
-            Presenter presenter = new Presenter(view);
+            SaveLoad saveLoad = new SaveLoad();
+            MainWindow view = new MainWindow(saveLoad);
+            Presenter presenter = new Presenter(view, saveLoad);
             Application.Run(view);
         }
     }

@@ -1,7 +1,9 @@
 ﻿using Airport_Operator_Simulation.Models;
+using Airport_Operator_Simulation.View.Class;
 using Airport_Operator_Simulation.View.Interface;
 using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -15,8 +17,10 @@ namespace Airport_Operator_Simulation
         public Queue<Human> _humans { get; set; } = new Queue<Human>();
         public TextBox[] values { get; set; }
         public Randoms rand {  get; set; }
-        public Presenter(IView view) 
-        { 
+        public SaveLoad saveLoad { get; set; }
+        public Presenter(IView view, SaveLoad save) 
+        {
+            saveLoad = save;
             _view = view;
             _chart = view._chart;
             values = _view.getValue; 
@@ -37,9 +41,17 @@ namespace Airport_Operator_Simulation
         }
         private void StartButton(object args, EventArgs e)
         {
-            CreateTerminals();
-            CreateHumanQueue();
-            StartChart();
+            if(!Check())
+            {
+                CheckWindow window = new CheckWindow();
+                window.Show();
+            }
+            else
+            {
+                CreateTerminals();
+                CreateHumanQueue();
+                StartChart();
+            }
         }             
         private void StartChart()
         {
@@ -55,11 +67,15 @@ namespace Airport_Operator_Simulation
         }
         public void GraphOutput()
         {
+            int tmp = 0;
             _chart.Series["Passenger"].Points.Clear();
             for (int i = 0; i < terminals.Length; i++)
             {
+                tmp += terminals[i].number;
                 _chart.Series["Passenger"].Points.AddXY(i, terminals[i].time);
             }
+            _view.stop = tmp.ToString();
+            saveLoad.Save(values, "C:\\Users\\satal\\source\\repos\\Airport Operator Simulation\\Airport Operator Simulation\\Save\\save.json");
         }
         public void CreateHumanQueue()
         {
@@ -76,8 +92,20 @@ namespace Airport_Operator_Simulation
             terminals = new Terminal[(int)tmp];
             for (int i = 0; i < tmp; i++)
             {
-                terminals[i] = new Terminal(rand._rand);
+                terminals[i] = new Terminal(rand._rand, Convert.ToInt32(values[2].Text));
             }
+        }
+        public bool Check()
+        {
+            if (Convert.ToInt32(values[0].Text) < 0 || Convert.ToInt32(values[0].Text) > Convert.ToInt32(values[1].Text) || Convert.ToInt32(values[1].Text) > 30)
+                return false;
+            if(Convert.ToInt32(values[2].Text) < 0 || Convert.ToInt32(values[2].Text) > 15)
+                return false;
+            if(Convert.ToInt32(values[3].Text) < 0 || Convert.ToInt32(values[3].Text) > 20)
+                return false;
+            if (Convert.ToInt32(values[4].Text) < 0 || Convert.ToInt32(values[4].Text) > Convert.ToInt32(values[5].Text) || Convert.ToInt32(values[5].Text) > 120)
+                return false;
+            return true;
         }
     }
 }
